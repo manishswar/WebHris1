@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html><head>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge' />
+	<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+	
+	<title>WEB HRIS</title>
+	
+	<!-- Load UI5, select gold reflection theme and the "commons" control library -->
+	<script id='sap-ui-bootstrap' type='text/javascript'
+		src='https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js'
+	        data-sap-ui-theme="sap_bluecrystal"
+		data-sap-ui-libs='sap.ui.commons,sap.ui.ux3,sap.ui.table'></script>
+	
+	<script>
+
+		//create the ApplicationHeader control 
+		 var oAppHeader = new sap.ui.commons.ApplicationHeader("appHeader");
+		
+		//set logo src
+		//oAppHeader.setLogoSrc("Penguins.jpg")
+		
+		//set User Name		
+		oAppHeader.setUserName("mswar");  
+ 
+ 
+ 		//configure the branding area 
+		oAppHeader.setLogoText("Human Resource Information System"); 
+ 
+ 
+ 		//configure the welcome area 
+ 		oAppHeader.setDisplayWelcome(true); 
+ 		oAppHeader.setUserName("Manish Swar"); 
+ 
+ 
+ 		//configure the log off area 
+		 oAppHeader.setDisplayLogoff(true); 
+ 
+ 
+		 oAppHeader.placeAt("content"); 
+
+		//Create Contact Details UI 
+ 		var oMatrix = new sap.ui.commons.layout.MatrixLayout({ 
+		 	id : 'matrix4', 
+		 	layoutFixed : true, 
+		 	width : '1000px', 
+		 	columns : 5, 
+		 	widths : ['100px', '100px', '100px', '100px', '100px'] }); 
+ 
+ 
+ 		var oCell = new sap.ui.commons.layout.MatrixLayoutCell({ 
+		 	colSpan: 5 }); 
+ 
+ 		var oTV = new sap.ui.commons.TextView({ 
+	 	id : 'TV-Head', 
+ 		text : 'Employee Personal Data', 
+ 		design : sap.ui.commons.TextViewDesign.H1 }); 
+  
+ 		oCell.addContent(oTV); 
+		 oMatrix.createRow(oCell); 
+  
+		var oLabel = new sap.ui.commons.Label({ 
+	 		id : 'L-Name', 
+ 			text : 'Employee Number' });  
+ 
+ 		var oTF = new sap.ui.commons.TextField({ 
+		 	id : 'TF-Name', 
+		 	tooltip : 'Staff Pernr', 
+		 	width : '100px'
+
+		 }); 
+
+		oTF.setMaxLength(8);
+ 		oTF.setValue("323727");
+		oTF.setRequired(true);
+		
+ 		oLabel.setLabelFor(oTF); 
+ 		oMatrix.createRow(oLabel, oTF); 	
+
+		//attach it to some element in the page 
+		 oMatrix.placeAt('content'); 
+
+ 		var sURI = 'https://esrtst.unicef.org/sap/opu/odata/sap/ZTST6_SRV/';
+
+ 		oModel = new sap.ui.model.odata.ODataModel(sURI, false), 
+	 	sap.ui.getCore().setModel(oModel); 
+
+
+ 		//Create a panel and html instances 
+		var oPanel = new sap.ui.commons.Panel(); 
+		var html = new sap.ui.core.HTML(); 
+ 		var mPersonalDetails = new sap.ui.commons.layout.MatrixLayout();
+ 		var mActions = new sap.ui.commons.layout.MatrixLayout();
+		var mAddress = new sap.ui.commons.layout.MatrixLayout();
+		var mInsurance = new sap.ui.commons.layout.MatrixLayout();
+		var mAbsence = new sap.ui.commons.layout.MatrixLayout();
+		var mPar = new sap.ui.commons.layout.MatrixLayout();
+		var sRead = "";  
+		
+		/*** DEFINE RE-USE COMPONENTS - NORMALLY DONE IN SEPARATE FILES ***/
+
+		// define a new (simple) Controller type
+		sap.ui.controller("my.own.controller", {
+					
+			doSomething: function() {
+     			   
+		         }
+		});
+		
+		// define a new (simple) Controller type
+		sap.ui.controller("my.own.cAddress", {
+					
+			doSomething: function() {
+
+
+		                mAddress.setLayoutFixed(false);
+ 
+                		mAddress.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Street", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Massn}"})
+                        	);
+                		mAddress.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"City", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Massg}"})
+                        	);
+                		mAddress.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"State", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Stat2}"})
+                        	);
+                		mAddress.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Postal Code", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Begda}"})
+                        	);
+                		mAddress.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Country", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Endda}"})
+                        	);
+ 
+      			   
+		         }
+		});
+		sap.ui.controller("my.own.cInsurance", {
+					
+			doSomething: function() {
+
+
+		                mInsurance.setLayoutFixed(false);
+ 
+                		mInsurance.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Plan Type", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Massn}"})
+                        	);
+                		mInsurance.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Provider", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Massg}"})
+                        	);
+                		mInsurance.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Benefit Plan", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Stat2}"})
+                        	);
+                		mInsurance.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Dependent Coverage", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Begda}"})
+                        	);
+ 
+      			   
+		         }
+		});
+		sap.ui.controller("my.own.cAbsence", {
+					
+			doSomething: function() {
+
+
+		                mAbsence.setLayoutFixed(false);
+ 
+                		mAbsence.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Absence Type", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Massn}"})
+                        	);
+                		mAbsence.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Time", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Massg}"})
+                        	);
+                		mAbsence.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Days", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Stat2}"})
+                        	);
+                		mAbsence.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Hours", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Begda}"})
+                        	);
+ 
+      			   
+		         }
+		});
+
+		sap.ui.controller("my.own.cPar", {
+					
+			doSomething: function() {
+
+
+		                mPar.setLayoutFixed(false);
+ 
+                		mPar.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Advance Type", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Massn}"})
+                        	);
+                		mPar.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Payable", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Massg}"})
+                        	);
+                		mPar.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Receivable", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Stat2}"})
+                        	);
+    
+     			   
+		         }
+		});
+		sap.ui.controller("my.own.cActions", {
+					
+			doSomething: function() {
+
+
+		                mActions.setLayoutFixed(false);
+ 
+                		mActions.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Action", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Massn}"})
+                        	);
+                		mActions.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Reason", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Massg}"})
+                        	);
+                		mActions.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Employee Status", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Stat2}"})
+                        	);
+                		mActions.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Start Date", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Begda}"})
+                        	);
+                		mActions.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"End Date", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Endda}"})
+                        	);
+ 
+      			   
+		         }
+		});
+		sap.ui.controller("my.own.cPersonalData", {
+					
+			doSomething: function() {
+
+
+		                mPersonalDetails.setLayoutFixed(false);
+ 
+                		mPersonalDetails.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Employee Name", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Ename}"})
+                        	);
+                		mPersonalDetails.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Staff Position", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Plans}"})
+                        	);
+                		mPersonalDetails.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Organizational Unit", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Orgeh}"})
+                        	);
+                		mPersonalDetails.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Payroll Area", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Abkrs}"})
+                        	);
+                		mPersonalDetails.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Employee Subgroup", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Persk}"})
+                        	);
+                		mPersonalDetails.createRow( 
+                       	  	       new sap.ui.commons.Label({text:"Personal Subarea", width:"100px"}),	
+                        	       new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Btrtl}"})
+                        	); 
+      			   
+		         }
+		});
+		
+		
+		// define a new (simple) View type
+		// ...alternatively this can be done in an XML file without JavaScript!
+
+		// Personal Data View type
+		sap.ui.jsview("my.own.vPersonalData", {
+			
+			// define the (default) controller type for this View
+			getControllerName: function() {
+				return "my.own.cPersonalData";
+			},
+					
+			fireBeforeRendering: function(oController) { 
+				oTFV = oTF.getValue(); 
+				mPersonalDetails.bindContext("/perset('" + oTFV + "')");
+			},
+
+			// defines the UI of this View
+			createContent: function(oController) {
+
+        		        //var oPersonalDetails = new sap.ui.commons.layout.MatrixLayout();
+ 
+		                //oPersonalDetails.setLayoutFixed(false);
+ 
+                		//oPersonalDetails.createRow( 
+                       	  	       //new sap.ui.commons.Label({text:"Employee Name", width:"100px"}),	
+                        	       //new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Ename}"})
+                        	//);
+                		//oPersonalDetails.createRow( 
+                       	  	  //     new sap.ui.commons.Label({text:"Staff Position", width:"100px"}),	
+                        	  //     new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Plans}"})
+                        	//);
+                		//oPersonalDetails.createRow( 
+                       	  	  //     new sap.ui.commons.Label({text:"Organizational Unit", width:"100px"}),	
+                        	  //     new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Orgeh}"})
+                        	//);
+                		//oPersonalDetails.createRow( 
+                       	  	  //     new sap.ui.commons.Label({text:"Payroll Area", width:"100px"}),	
+                        	  //     new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Abkrs}"})
+                        	//);
+                		//oPersonalDetails.createRow( 
+                       	  	  //     new sap.ui.commons.Label({text:"Employee Subgroup", width:"100px"}),	
+                        	  //     new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Persk}"})
+                        	//);
+                		//oPersonalDetails.createRow( 
+                       	  	  //     new sap.ui.commons.Label({text:"Personal Subarea", width:"100px"}),	
+                        	  //     new sap.ui.commons.TextField({editable:false, width:"200px", value : "{Btrtl}"})
+                        	//);
+
+
+				oController.doSomething();
+
+//				oPersonalDetails.bindContext("/perset('123')");
+				return mPersonalDetails;
+ 
+			}
+		});
+		
+		sap.ui.jsview("my.own.vActions", {
+			
+			// define the (default) controller type for this View
+			getControllerName: function() {
+				return "my.own.cActions";
+			},
+					
+			fireBeforeRendering: function(oController) { 
+				oTFV = oTF.getValue(); 
+				mPersonalDetails.bindContext("/perset('" + oTFV + "')");
+			},
+
+			// defines the UI of this View
+			createContent: function(oController) {
+
+				oController.doSomething();
+
+				return mActions;
+ 
+			}
+		});
+
+		sap.ui.jsview("my.own.vAddress", {
+			
+			// define the (default) controller type for this View
+			getControllerName: function() {
+				return "my.own.cAddress";
+			},
+					
+			fireBeforeRendering: function(oController) { 
+				oTFV = oTF.getValue(); 
+				mPersonalDetails.bindContext("/perset('" + oTFV + "')");
+			},
+
+			// defines the UI of this View
+			createContent: function(oController) {
+
+				oController.doSomething();
+
+				return mAddress;
+ 
+			}
+		});
+
+		sap.ui.jsview("my.own.vInsurance", {
+			
+			// define the (default) controller type for this View
+			getControllerName: function() {
+				return "my.own.cInsurance";
+			},
+					
+			fireBeforeRendering: function(oController) { 
+				oTFV = oTF.getValue(); 
+				mPersonalDetails.bindContext("/perset('" + oTFV + "')");
+			},
+
+			// defines the UI of this View
+			createContent: function(oController) {
+
+				oController.doSomething();
+
+				return mInsurance;
+ 
+			}
+		});
+
+		sap.ui.jsview("my.own.vAbsence", {
+			
+			// define the (default) controller type for this View
+			getControllerName: function() {
+				return "my.own.cAbsence";
+			},
+					
+			fireBeforeRendering: function(oController) { 
+				oTFV = oTF.getValue(); 
+				mPersonalDetails.bindContext("/perset('" + oTFV + "')");
+			},
+
+			// defines the UI of this View
+			createContent: function(oController) {
+
+				oController.doSomething();
+
+				return mAbsence;
+ 
+			}
+		});
+		sap.ui.jsview("my.own.vPar", {
+			
+			// define the (default) controller type for this View
+			getControllerName: function() {
+				return "my.own.cPar";
+			},
+					
+			fireBeforeRendering: function(oController) { 
+				oTFV = oTF.getValue(); 
+				mPersonalDetails.bindContext("/perset('" + oTFV + "')");
+			},
+
+			// defines the UI of this View
+			createContent: function(oController) {
+
+				oController.doSomething();
+
+				return mPar;
+ 
+			}
+		});
+
+		sap.ui.jsview("my.own.view", {
+			
+			// define the (default) controller type for this View
+			getControllerName: function() {
+				return "my.own.controller";
+			},
+
+			fireBeforeRendering: function(oController) { 
+				oTFV = oTF.getValue();
+				sRead = "/payset('" + oTFV + "')" ;
+			    	oModel.read( sRead, null, null, true, function(oData, oResponse){ 
+		 			var pdfURL = oData.EUrl; 
+			        html.setContent("<iframe src=" + pdfURL + " width='700' height='700'></iframe>"); 
+
+				});
+			},
+
+			// defines the UI of this View
+			createContent: function(oController) {
+
+				oController.doSomething();
+			
+				return html;
+			}
+
+		});		
+		
+		/*** THIS IS THE "APPLICATION" CODE ***/
+		
+		
+		// instantiate the Views
+		var vPersonalData = sap.ui.view({type:sap.ui.core.mvc.ViewType.JS, viewName:"my.own.vPersonalData"});
+		var myView = sap.ui.view({type:sap.ui.core.mvc.ViewType.JS, viewName:"my.own.view"});
+		var vActions = sap.ui.view({type:sap.ui.core.mvc.ViewType.JS, viewName:"my.own.vActions"});
+		var vAddress = sap.ui.view({type:sap.ui.core.mvc.ViewType.JS, viewName:"my.own.vAddress"});
+		var vInsurance = sap.ui.view({type:sap.ui.core.mvc.ViewType.JS, viewName:"my.own.vInsurance"});
+		var vAbsence = sap.ui.view({type:sap.ui.core.mvc.ViewType.JS, viewName:"my.own.vAbsence"});
+		var vPar = sap.ui.view({type:sap.ui.core.mvc.ViewType.JS, viewName:"my.own.vPar"});
+
+		
+		// create a Model and assign it to the Views
+		vPersonalData.setModel(oModel);	
+		myView.setModel(oModel);
+		vActions.setModel(oModel);
+		vAddress.setModel(oModel);
+		vInsurance.setModel(oModel);
+		vAbsence.setModel(oModel);
+		vPar.setModel(oModel);	
+
+
+
+		// Buttons for switching Views
+
+		new sap.ui.commons.Button({text:"Personal Data",press:function(){
+			width: '200px' ;
+			oPanel.removeAllContent();
+			oPanel.addContent(vPersonalData);
+
+		}}).placeAt("content");
+
+		new sap.ui.commons.Button({text:"Absences",press:function(){
+			width: '200px' ;
+			oPanel.removeAllContent();
+			oPanel.addContent(vAbsence);
+		}}).placeAt("content");
+
+		new sap.ui.commons.Button({text:"Insurance",press:function(){
+			width: '200px' ;
+			oPanel.removeAllContent();
+			oPanel.addContent(vInsurance);
+		}}).placeAt("content");
+
+		new sap.ui.commons.Button({text:"A/c receivable",press:function(){
+			width: '200px' ;
+			oPanel.removeAllContent();
+			oPanel.addContent(vPar);
+		}}).placeAt("content");
+
+		new sap.ui.commons.Button({text:"Actions",press:function(){
+			width: '200px' ;
+			oPanel.removeAllContent();
+			oPanel.addContent(vActions);
+		}}).placeAt("content");
+
+		new sap.ui.commons.Button({text:"Payslip",press:function(){
+			width: '200px' ;
+			oPanel.removeAllContent();
+			oPanel.addContent(myView);
+		}}).placeAt("content");
+
+	
+// 		oMatrix.createRow(oButton1, oButton); 
+
+
+		
+		// put the Panel onto the screen, initial content is the first View
+		var oPanel = new sap.ui.commons.Panel({text:"Press buttons above for navigation",collapsed: false,content:vPersonalData});
+
+		oPanel.placeAt('content');
+		
+		
+	</script>
+	
+	</head>
+	<body class='sapUiBody'>
+		<div id='content'></div>
+	</body>
+</html>
